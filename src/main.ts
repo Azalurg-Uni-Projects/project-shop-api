@@ -1,12 +1,20 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import cors from "cors";
+import { config } from "dotenv";
+import { connectToServer } from "./config/db";
+import itemRoutes from "./routes/items";
+config({ path: ".env" });
+
 const app = express();
+const port = process.env.PORT || 5000;
 
-const PORT = 3000
+app.use(cors());
+app.use(express.json());
+app.use("/item", itemRoutes);
 
-app.get("/", (req: Request, res: Response): void => {
-  res.json({ message: "Hello there" });
-});
-
-app.listen(PORT, (): void => {
-  console.log(`Server Running on port ${PORT}`);
+app.listen(port, () => {
+  connectToServer((err: any) => {
+    if (err) console.error(err);
+  });
+  console.log(`Server is running on port: ${port}`);
 });
