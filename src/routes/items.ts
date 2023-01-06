@@ -4,11 +4,12 @@ import { getDb } from "../config/db";
 import { Item } from "../models/Item";
 
 const itemRoutes = express.Router();
+const collection = "item"
 
 itemRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
   dbConnect
-    .collection("item")
+    .collection(collection)
     .find({})
     .toArray((err: any, result: any) => {
       if (err) throw err;
@@ -16,25 +17,25 @@ itemRoutes.route("/").get((req, res) => {
     });
 });
 
-// recordRoutes.route("/record/:id").get((req, res) => {
-//   const dbConnect = getDb("employees");
-//   const myquery = { _id: ObjectId(req.params.id) };
-//   dbConnect
-//     .collection("records")
-//     .findOne(myquery, (err, result) => {
-//       if (err) throw err;
-//       res.json(result);
-//     });
-// });
-
-itemRoutes.route("/").post((req, response) => {
-  const item = new Item(req);
+itemRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
   dbConnect
-    .collection("item")
-    .insertOne(item, (err: any, res: any) => {
+    .collection(collection)
+    .findOne(query, (err: any, result: any) => {
       if (err) throw err;
-      response.json(res);
+      res.json(result);
+    });
+});
+
+itemRoutes.route("/").post((req, res) => {
+  const dbConnect = getDb();
+  const item = new Item(req);
+  dbConnect
+    .collection(collection)
+    .insertOne(item, (err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
     });
 });
 
@@ -56,7 +57,7 @@ itemRoutes.route("/").post((req, response) => {
 //         response.json(res);
 //       });
 //   });
-  
+
 //   recordRoutes.route("/:id").delete((req, res) => {
 //     const dbConnect = getDb("employees");
 //     const myquery = { _id: ObjectId(req.params.id) };
@@ -68,5 +69,5 @@ itemRoutes.route("/").post((req, response) => {
 //         res.json(obj);
 //       });
 //   });
-  
- export default itemRoutes;
+
+export default itemRoutes;

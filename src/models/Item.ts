@@ -8,6 +8,7 @@ interface IItem {
     delivery: string[],
     description: string,
     quantity: number,
+    categories: string[],
     rating: Rating[]
 }
 
@@ -18,6 +19,7 @@ export class Item implements IItem{
     delivery: string[];
     description: string;
     quantity: number;
+    categories: string[];
     rating: Rating[];
 
     constructor(req: Request){
@@ -27,6 +29,8 @@ export class Item implements IItem{
         this.description = req.body.delivery;
         this. delivery = req.body.description;
         this.quantity = req.body.quantity;
+        this.categories = req.body.categories;
         this.rating = [];
     }
+    
 }
