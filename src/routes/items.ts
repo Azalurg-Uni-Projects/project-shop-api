@@ -39,35 +39,36 @@ itemRoutes.route("/").post((req, res) => {
     });
 });
 
-// recordRoutes.route("/update/:id").post((req, response) => {
-//     const dbConnect = getDb("employees");
-//     const myquery = { _id: ObjectId(req.params.id) };
-//     const newValues = {
-//       $set: {
-//         name: req.body.name,
-//         position: req.body.position,
-//         level: req.body.level,
-//       },
-//     };
-//     dbConnect
-//       .collection("records")
-//       .updateOne(myquery, newValues, (err, res) => {
-//         if (err) throw err;
-//         console.log("1 document updated successfully");
-//         response.json(res);
-//       });
-//   });
+// Todo: It don't work...
 
-//   recordRoutes.route("/:id").delete((req, res) => {
-//     const dbConnect = getDb("employees");
-//     const myquery = { _id: ObjectId(req.params.id) };
-//     dbConnect
-//       .collection("records")
-//       .deleteOne(myquery, (err, obj) => {
-//         if (err) throw err;
-//         console.log("1 document deleted");
-//         res.json(obj);
-//       });
-//   });
+itemRoutes.route("/:id").put((req, res) => {
+    const dbConnect = getDb();
+    const query = { _id: new ObjectId(req.params.id) };
+    const newValues = {
+      $set: {... new Item(req)},
+    };
+    console.log(newValues);
+    dbConnect
+      .collection("records")
+      .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
+        if (err) throw err;
+        console.log("1 document updated successfully");
+        res.json(result);
+      });
+  });
+
+  // Todo: It don't work too...
+
+  itemRoutes.route("/:id").delete((req, res) => {
+    const dbConnect = getDb();
+    const query = { _id: new ObjectId(req.params.id) };
+    dbConnect
+      .collection("records")
+      .deleteOne(query, (err: any, result: Response) => {
+        if (err) throw err;
+        console.log("1 document deleted");
+        res.json(result);
+      });
+  });
 
 export default itemRoutes;
