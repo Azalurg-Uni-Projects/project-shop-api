@@ -6,11 +6,17 @@ import { Item } from "../models/Item";
 const itemRoutes = express.Router();
 const collection = "item"
 
+// http://localhost:3000/item?sort={"price":1}&filter={"delivery": "UPS"}
+
 itemRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
+  const filter = JSON.parse(req.query.filter?.toString() || "{}"); 
+  const sort = JSON.parse(req.query.sort?.toString() || "{}");
+
   dbConnect
     .collection(collection)
-    .find({})
+    .find(filter)
+    .sort(sort)
     .toArray((err: any, result: any) => {
       if (err) throw err;
       res.json(result);
