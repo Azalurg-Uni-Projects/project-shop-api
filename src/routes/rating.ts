@@ -42,4 +42,33 @@ ratingRoutes.route("/amount").get((req, res) => {
     });
 });
 
+ratingRoutes.route("/avg/:id").get((req, res) => {
+  const dbConnect = getDb();
+  const id = new ObjectId(req.params.id);
+
+  dbConnect
+    .collection("item")
+    .aggregate([
+      {
+        $match: { _id: id},
+      },
+      {
+        $unwind: "$rating",
+      },
+      {
+        $group: {
+          _id: id,
+          avgRating: { $avg: "$rating.score" }
+        },
+      },
+    ])
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      if (result.length === 0) {
+        return res.json({ avgRating: 0 });
+      }
+      res.json(result[0]);
+    });
+});
+
 export default ratingRoutes;
