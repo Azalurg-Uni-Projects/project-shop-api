@@ -5,6 +5,26 @@ import Rating from "../models/Rating";
 
 const ratingRoutes = express.Router();
 
+ratingRoutes.route("/").get((req, res) => {
+  const dbConnect = getDb();
+
+  dbConnect
+    .collection("item")
+    .aggregate([
+      
+      {
+        $project: {
+          _id: 1,
+          rating: 1
+        },
+      },
+    ])
+  .toArray((err: any, result: any) => {
+    if (err) throw err;
+    res.json(result);
+  });
+})
+
 // Todo: Why all my edits and deletes don't work? 
 
 ratingRoutes.route("/:id").post((req, res) => {
