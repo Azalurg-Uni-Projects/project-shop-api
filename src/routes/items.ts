@@ -9,7 +9,7 @@ const collection = "item"
 // Get all items
 itemRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
-  const filter = JSON.parse(req.query.filter?.toString() || "{}"); 
+  const filter = JSON.parse(req.query.filter?.toString() || "{}");
   const sort = JSON.parse(req.query.sort?.toString() || "{}");
 
   dbConnect
@@ -48,20 +48,20 @@ itemRoutes.route("/").post((req, res) => {
 
 // Update item
 itemRoutes.route("/:id").put((req, res) => {
-    const dbConnect = getDb();
-    const query = { _id: new ObjectId(req.params.id) };
-    const newValues = {
-      $set: {... new Item(req)},
-    };
-    console.log(newValues);
-    dbConnect
-      .collection(collection)
-      .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
-        if (err) throw err;
-        console.log("1 document updated successfully");
-        res.json(result);
-      });
-  });
+  const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
+  const newValues = {
+    $set: { ... new Item(req) },
+  };
+  console.log(newValues);
+  dbConnect
+    .collection(collection)
+    .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
+      if (err) throw err;
+      console.log("1 document updated successfully");
+      res.json(result);
+    });
+});
 
 
 // Remove item
