@@ -2,7 +2,7 @@
     {
       "name": "Dell XPS 13 Laptop",
       "price": 999,
-      "imageUrl": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fdiggita.com%2Fmodules%2Fauto_thumb%2F2017%2F09%2F04%2F1606711_dell_xps_13_2017_600_thumb_big.jpg&f=1&nofb=1&ipt=afa8bad722e323b529cedcd49afd4e80f7dcb05403f1c133d4c9258a6dc8adcd&ipo=images",
+      "imageUrl": "",
       "delivery": [
         "UPS",
         "FedEx",
@@ -29,7 +29,7 @@
     {
       "name": "Apple iPhone 12",
       "price": 799,
-      "imageUrl": "https://thumbs.dreamstime.com/b/iphone-jest-zielony-na-powierzchni-marmuru-nowy-smartfon-z-firmy-apple-rostovondon-rosja-listopad-211285528.jpg",
+      "imageUrl": "",
       "delivery": [
         "UPS",
         "FedEx"
@@ -58,7 +58,7 @@
     {
       "name": "Asus ROG Strix Gaming PC",
       "price": 2999,
-      "imageUrl": "https://f01.esfr.pl/foto/7/102413607577/b5a9f265e823dc6bcf469a5b30dce016/asus-komputer-asus-r556-8gb-rtx3060-512gb,102413607577_8.jpg",
+      "imageUrl": "",
       "delivery": [
         "UPS"
       ],
@@ -74,7 +74,7 @@
     {
       "name": "Samsung Galaxy S21",
       "price": 749,
-      "imageUrl": "https://image.ceneostatic.pl/data/products/98143284/i-samsung-galaxy-s21-5g-sm-g991-8-128gb-szary.jpg",
+      "imageUrl": "",
       "delivery": [
         "FedEx",
         "USPS"
@@ -90,7 +90,7 @@
     {
       "name": "Lenovo ThinkPad X1 Carbon Laptop",
       "price": 1199,
-      "imageUrl": "https://delkom.pl/pic/031E/334622/thinkpad-x1-carbon-gen10-czarna-obudowa-w11pro-przod-png-720x.png",
+      "imageUrl": "",
       "delivery": [
         "UPS",
         "FedEx",
@@ -298,7 +298,7 @@
     {
       "name": "HP Omen Gaming Desktop",
       "price": 1499,
-      "imageUrl": "https://www.omen.com/content/dam/sites/omen/worldwide/desktops/omen-25l-and-30l/Orisa_Premium_30L_LiquidCooled_DoradoOC_WhiteLED_RTX3080_ShadowBlack_nonODD_Hero_Exploded_v1.png",
+      "imageUrl": "",
       "delivery": [
         "UPS"
       ],
@@ -379,7 +379,7 @@
     {
       "name": "Intel Core i9-11900K Processor",
       "price": 599,
-      "imageUrl": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/3/pr_2021_3_15_10_38_31_487_02.jpg",
+      "imageUrl": "",
       "delivery": [
         "UPS",
         "FedEx"

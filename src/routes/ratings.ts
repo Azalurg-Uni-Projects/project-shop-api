@@ -4,14 +4,37 @@ import { getDb } from "../config/db";
 import Rating from "../models/Rating";
 
 const ratingRoutes = express.Router();
+const collection = "item"
 
 ratingRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
 
   dbConnect
-    .collection("item")
+    .collection(collection)
     .aggregate([
       
+      {
+        $project: {
+          _id: 1,
+          rating: 1
+        },
+      },
+    ])
+  .toArray((err: any, result: any) => {
+    if (err) throw err;
+    res.json(result);
+  });
+})
+
+ratingRoutes.route("/:id").get((req, res) => {
+  const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
+  dbConnect
+    .collection(collection)
+    .aggregate([
+      {
+        $match: query
+      },
       {
         $project: {
           _id: 1,
@@ -32,7 +55,7 @@ ratingRoutes.route("/:id").post((req, res) => {
   const query = { _id: new ObjectId(req.params.id) };
   const newRating = new Rating(req);
   dbConnect
-    .collection("items")
+    .collection(collection)
     .updateOne(query, { $push: { rating: newRating } }, (err: any, result: any) => {
       if (err) throw err;
       console.log("1 document updated successfully");
@@ -44,7 +67,7 @@ ratingRoutes.route("/amount").get((req, res) => {
   const dbConnect = getDb();
 
   dbConnect
-    .collection("item")
+    .collection(collection)
     .aggregate([
       {
         $unwind: "$rating",
@@ -67,7 +90,7 @@ ratingRoutes.route("/avg/:id").get((req, res) => {
   const id = new ObjectId(req.params.id);
 
   dbConnect
-    .collection("item")
+    .collection(collection)
     .aggregate([
       {
         $match: { _id: id},

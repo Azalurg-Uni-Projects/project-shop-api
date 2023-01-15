@@ -45,8 +45,6 @@ itemRoutes.route("/").post((req, res) => {
     });
 });
 
-// Todo: It don't work...
-
 itemRoutes.route("/:id").put((req, res) => {
     const dbConnect = getDb();
     const query = { _id: new ObjectId(req.params.id) };
@@ -55,7 +53,7 @@ itemRoutes.route("/:id").put((req, res) => {
     };
     console.log(newValues);
     dbConnect
-      .collection("records")
+      .collection(collection)
       .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
         if (err) throw err;
         console.log("1 document updated successfully");
@@ -63,13 +61,11 @@ itemRoutes.route("/:id").put((req, res) => {
       });
   });
 
-  // Todo: It don't work too...
-
   itemRoutes.route("/:id").delete((req, res) => {
     const dbConnect = getDb();
     const query = { _id: new ObjectId(req.params.id) };
     dbConnect
-      .collection("records")
+      .collection(collection)
       .deleteOne(query, (err: any, result: Response) => {
         if (err) throw err;
         console.log("1 document deleted");
