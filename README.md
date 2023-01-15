@@ -3,5 +3,6 @@
 ## Example `.env` file
 
 ```bash
-PORT=5000
+MONGO_URI=mongodb://localhost:27017
+PORT=3000
 ```
