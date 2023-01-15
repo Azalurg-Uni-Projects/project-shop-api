@@ -1,0 +1,396 @@
+[
+    {
+      "name": "Dell XPS 13 Laptop",
+      "price": 999,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The Dell XPS 13 is a powerful and lightweight laptop with a 13.3-inch Full HD display, 8th gen Intel Core i5 processor, and 8GB of RAM.",
+      "quantity": 50,
+      "categories": [
+        "laptops",
+        "computers",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 5,
+          "description": "Outstanding product, exceeded all expectations"
+        },
+        {
+          "score": 4,
+          "description": "Good quality electronic part, no issues encountered"
+        }
+      ]
+    },
+    {
+      "name": "Apple iPhone 12",
+      "price": 799,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx"
+      ],
+      "description": "The Apple iPhone 12 is the latest smartphone from Apple, featuring a 6.1-inch Super Retina XDR display, A14 Bionic chip, and dual-camera system.",
+      "quantity": 100,
+      "categories": [
+        "phones",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 1,
+          "description": "Terrible customer service, would not recommend"
+        },
+        {
+          "score": 3,
+          "description": "Adequate customer service, received the help needed"
+        },
+        {
+          "score": 4,
+          "description": "Very good laptop, highly recommended"
+        }
+      ]
+    },
+    {
+      "name": "Asus ROG Strix Gaming PC",
+      "price": 2999,
+      "imageUrl": "",
+      "delivery": [
+        "UPS"
+      ],
+      "description": "The Asus ROG Strix Gaming PC is a high-performance gaming computer with an Intel Core i9-10900K processor, NVIDIA GeForce RTX 3080 graphics card, and 32GB of RAM.",
+      "quantity": 25,
+      "categories": [
+        "computers",
+        "gaming PCs",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "Samsung Galaxy S21",
+      "price": 749,
+      "imageUrl": "",
+      "delivery": [
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The Samsung Galaxy S21 is a powerful and feature-packed smartphone with a 6.2-inch AMOLED display, Qualcomm Snapdragon 888 processor, and triple-camera system.",
+      "quantity": 75,
+      "categories": [
+        "phones",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "Lenovo ThinkPad X1 Carbon Laptop",
+      "price": 1199,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The Lenovo ThinkPad X1 Carbon is a lightweight and durable laptop with a 14-inch Full HD display, 10th gen Intel Core i5 processor, and 16GB of RAM.",
+      "quantity": 50,
+      "categories": [
+        "laptops",
+        "computers",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 5,
+          "description": "Outstanding product, exceeded all expectations"
+        },
+        {
+          "score": 4,
+          "description": "Very good product, highly recommended"
+        },
+        {
+          "score": 3,
+          "description": "Average product, met expectations"
+        },
+        {
+          "score": 5,
+          "description": "Excellent laptop, exceeded all expectations"
+        },
+        {
+          "score": 4,
+          "description": "Very good laptop, highly recommended"
+        }
+      ]
+    },
+    {
+      "name": "AMD Ryzen 9 5900X Processor",
+      "price": 499,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx"
+      ],
+      "description": "The AMD Ryzen 9 5900X is a powerful and efficient processor with 12 cores and 24 threads, making it ideal for gaming, streaming, and content creation.",
+      "quantity": 100,
+      "categories": [
+        "PC parts",
+        "computers",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "Gigabyte AORUS NVMe Gen4 1TB SSD",
+      "price": 199,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx"
+      ],
+      "description": "The Gigabyte AORUS NVMe Gen4 1TB SSD is a high-performance solid state drive with fast read and write speeds, making it ideal for storing and accessing large files quickly.",
+      "quantity": 50,
+      "categories": [
+        "PC parts",
+        "computers",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "Corsair Vengeance RGB Pro 16GB DDR4 RAM",
+      "price": 109,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The Corsair Vengeance RGB Pro 16GB DDR4 RAM is a high-quality memory module with customizable RGB lighting, ideal for boosting the performance of your computer.",
+      "quantity": 100,
+      "categories": [
+        "PC parts",
+        "computers",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 2,
+          "description": "Below average laptop, did not meet expectations"
+        },
+        {
+          "score": 1,
+          "description": "Poor laptop, do not recommend"
+        },
+        {
+          "score": 2,
+          "description": "Below average quality electronic part, significant issues encountered"
+        },
+        {
+          "score": 1,
+          "description": "Poor quality electronic part, did not function properly"
+        },
+        {
+          "score": 1,
+          "description": "Terrible customer service, would not recommend"
+        }
+      ]
+    },
+    {
+      "name": "EVGA GeForce RTX 3080 XC3 Ultra Gaming GPU",
+      "price": 899,
+      "imageUrl": "",
+      "delivery": [
+        "UPS"
+      ],
+      "description": "The EVGA GeForce RTX 3080 XC3 Ultra Gaming GPU is a top-of-the-line graphics card with ray tracing capabilities and support for 4K gaming, making it ideal for the most demanding PC games.",
+      "quantity": 25,
+      "categories": [
+        "PC parts",
+        "computers",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "Microsoft Surface Pro 7 Tablet",
+      "price": 799,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The Microsoft Surface Pro 7 is a versatile 2-in-1 tablet with a 12.3-inch touchscreen, 10th gen Intel Core i5 processor, and 8GB of RAM.",
+      "quantity": 50,
+      "categories": [
+        "tablets",
+        "computers",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 3,
+          "description": "Average product, met expectations"
+        },
+        {
+          "score": 2,
+          "description": "Below average product, did not meet expectations"
+        },
+        {
+          "score": 1,
+          "description": "Poor product, do not recommend"
+        },
+        {
+          "score": 2,
+          "description": "Below average laptop, did not meet expectations"
+        },
+        {
+          "score": 1,
+          "description": "Poor laptop, do not recommend"
+        }
+      ]
+    },
+    {
+      "name": "Google Pixel 4a Smartphone",
+      "price": 349,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx"
+      ],
+      "description": "The Google Pixel 4a is a budget-friendly smartphone with a 5.8-inch Full HD display, Qualcomm Snapdragon 730 processor, and 12.2MP camera.",
+      "quantity": 100,
+      "categories": [
+        "phones",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 5,
+          "description": "High quality electronic part, works perfectly"
+        },
+        {
+          "score": 4,
+          "description": "Good quality electronic part, no issues encountered"
+        },
+        {
+          "score": 5,
+          "description": "Excellent laptop, exceeded all expectations"
+        },
+        {
+          "score": 4,
+          "description": "Very good laptop, highly recommended"
+        },
+        {
+          "score": 5,
+          "description": "Outstanding product, exceeded all expectations"
+        },
+        {
+          "score": 5,
+          "description": "Excellent customer service, went above and beyond"
+        }
+      ]
+    },
+    {
+      "name": "HP Omen Gaming Desktop",
+      "price": 1499,
+      "imageUrl": "",
+      "delivery": [
+        "UPS"
+      ],
+      "description": "The HP Omen Gaming Desktop is a powerful gaming computer with an Intel Core i7-10700K processor, NVIDIA GeForce RTX 3070 graphics card, and 16GB of RAM.",
+      "quantity": 25,
+      "categories": [
+        "desktops",
+        "computers",
+        "gaming PCs",
+        "electronics"
+      ],
+      "rating": []
+    },
+    {
+      "name": "OnePlus 8 Pro Smartphone",
+      "price": 999,
+      "imageUrl": "",
+      "delivery": [
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The OnePlus 8 Pro is a high-end smartphone with a 6.78-inch AMOLED display, Qualcomm Snapdragon 865 processor, and quad-camera system.",
+      "quantity": 75,
+      "categories": [
+        "phones",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 4,
+          "description": "Very good customer service, satisfied with assistance received"
+        },
+        {
+          "score": 3,
+          "description": "Adequate customer service, received the help needed"
+        },
+        {
+          "score": 2,
+          "description": "Poor customer service, did not receive the assistance required"
+        },
+        {
+          "score": 3,
+          "description": "Average laptop, met expectations"
+        },
+        {
+          "score": 2,
+          "description": "Below average laptop, did not meet expectations"
+        }
+      ]
+    },
+    {
+      "name": "LG Gram Laptop",
+      "price": 899,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx",
+        "USPS"
+      ],
+      "description": "The LG Gram is a lightweight and durable laptop with a 14-inch Full HD display, 11th gen Intel Core i5 processor, and 8GB of RAM.",
+      "quantity": 50,
+      "categories": [
+        "laptops",
+        "computers",
+        "electronics"
+      ],
+      "rating": [
+        {
+          "score": 2,
+          "description": "Below average laptop, did not meet expectations"
+        },
+        {
+          "score": 1,
+          "description": "Poor laptop, do not recommend"
+        }
+      ]
+    },
+    {
+      "name": "Intel Core i9-11900K Processor",
+      "price": 599,
+      "imageUrl": "",
+      "delivery": [
+        "UPS",
+        "FedEx"
+      ],
+      "description": "The Intel Core i9-11900K is a powerful and efficient processor with 8 cores and 16 threads, making it ideal for gaming, streaming, and content creation.",
+      "quantity": 100,
+      "categories": [
+        "PC parts",
+        "computers",
+        "electronics"
+      ],
+      "rating": []
+    }
+  ]
