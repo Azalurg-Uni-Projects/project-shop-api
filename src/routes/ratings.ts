@@ -26,6 +26,53 @@ ratingRoutes.route("/").get((req, res) => {
   });
 })
 
+ratingRoutes.route("/stats").get((req, res) => {
+  const dbConnect = getDb();
+
+  dbConnect
+    .collection(collection)
+    .aggregate([
+      {
+        $unwind: "$rating",
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+          sum: { $sum: "$rating.score" },
+          avg: { $avg: "$rating.score" },
+          withDescriptionCount: { $sum: { $cond: [ {$ne: ["$rating.description", ""]}, 1, 0] }},
+          withoutDescriptionCount: { $sum: { $cond: [ {$eq: ["$rating.description", ""]}, 1, 0] }},
+          oneStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 1]}, 1, 0] }},
+          twoStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 2]}, 1, 0] }},
+          threeStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 3]}, 1, 0] }},
+          fourStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 4]}, 1, 0] }},
+          fiveStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 5]}, 1, 0] }},
+        },
+      },
+      {
+        $project: { 
+          _id: 0,
+          count: "$count",
+          sum: "$sum",
+          avg: {$round: ["$avg", 2]},
+          withDescriptionCount: "$withDescriptionCount",
+          withoutDescriptionCount: "$withoutDescriptionCount",
+          oneStarCount: "$oneStarCount",
+          twoStarCount: "$twoStarCount",
+          threeStarCount: "$threeStarCount",
+          fourStarCount: "$fourStarCount",
+          fiveStarCount: "$fiveStarCount"
+        },
+        
+      }
+    ])
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 ratingRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
@@ -48,8 +95,6 @@ ratingRoutes.route("/:id").get((req, res) => {
   });
 })
 
-// Todo: Why all my edits and deletes don't work? 
-
 ratingRoutes.route("/:id").post((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
@@ -59,28 +104,6 @@ ratingRoutes.route("/:id").post((req, res) => {
     .updateOne(query, { $push: { rating: newRating } }, (err: any, result: any) => {
       if (err) throw err;
       console.log("1 document updated successfully");
-      res.json(result);
-    });
-});
-
-ratingRoutes.route("/amount").get((req, res) => {
-  const dbConnect = getDb();
-
-  dbConnect
-    .collection(collection)
-    .aggregate([
-      {
-        $unwind: "$rating",
-      },
-      {
-        $group: {
-          _id: null,
-          totalRatingCount: { $sum: 1 },
-        },
-      },
-    ])
-    .toArray((err: any, result: any) => {
-      if (err) throw err;
       res.json(result);
     });
 });
@@ -101,14 +124,19 @@ ratingRoutes.route("/avg/:id").get((req, res) => {
       {
         $group: {
           _id: id,
-          avgRating: { $avg: "$rating.score" }
-        },
+          avg: { $avg: "$rating.score" }
+        }
       },
+      {
+        $project: {
+          avg: {$round: ["$avg", 2]}, 
+        }
+      }
     ])
     .toArray((err: any, result: any) => {
       if (err) throw err;
       if (result.length === 0) {
-        return res.json({ avgRating: 0 });
+        return res.json({ avg: 0 });
       }
       res.json(result[0]);
     });
