@@ -6,13 +6,14 @@ import Rating from "../models/Rating";
 const ratingRoutes = express.Router();
 const collection = "item"
 
+// Get ratings of all items
 ratingRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
 
   dbConnect
     .collection(collection)
     .aggregate([
-      
+
       {
         $project: {
           _id: 1,
@@ -20,12 +21,13 @@ ratingRoutes.route("/").get((req, res) => {
         },
       },
     ])
-  .toArray((err: any, result: any) => {
-    if (err) throw err;
-    res.json(result);
-  });
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
 })
 
+// Generate statistics of ratings
 ratingRoutes.route("/stats").get((req, res) => {
   const dbConnect = getDb();
 
@@ -41,21 +43,21 @@ ratingRoutes.route("/stats").get((req, res) => {
           count: { $sum: 1 },
           sum: { $sum: "$rating.score" },
           avg: { $avg: "$rating.score" },
-          withDescriptionCount: { $sum: { $cond: [ {$ne: ["$rating.description", ""]}, 1, 0] }},
-          withoutDescriptionCount: { $sum: { $cond: [ {$eq: ["$rating.description", ""]}, 1, 0] }},
-          oneStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 1]}, 1, 0] }},
-          twoStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 2]}, 1, 0] }},
-          threeStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 3]}, 1, 0] }},
-          fourStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 4]}, 1, 0] }},
-          fiveStarCount: { $sum: { $cond: [ {$eq: ["$rating.score", 5]}, 1, 0] }},
+          withDescriptionCount: { $sum: { $cond: [{ $ne: ["$rating.description", ""] }, 1, 0] } },
+          withoutDescriptionCount: { $sum: { $cond: [{ $eq: ["$rating.description", ""] }, 1, 0] } },
+          oneStarCount: { $sum: { $cond: [{ $eq: ["$rating.score", 1] }, 1, 0] } },
+          twoStarCount: { $sum: { $cond: [{ $eq: ["$rating.score", 2] }, 1, 0] } },
+          threeStarCount: { $sum: { $cond: [{ $eq: ["$rating.score", 3] }, 1, 0] } },
+          fourStarCount: { $sum: { $cond: [{ $eq: ["$rating.score", 4] }, 1, 0] } },
+          fiveStarCount: { $sum: { $cond: [{ $eq: ["$rating.score", 5] }, 1, 0] } },
         },
       },
       {
-        $project: { 
+        $project: {
           _id: 0,
           count: "$count",
           sum: "$sum",
-          avg: {$round: ["$avg", 2]},
+          avg: { $round: ["$avg", 2] },
           withDescriptionCount: "$withDescriptionCount",
           withoutDescriptionCount: "$withoutDescriptionCount",
           oneStarCount: "$oneStarCount",
@@ -64,7 +66,7 @@ ratingRoutes.route("/stats").get((req, res) => {
           fourStarCount: "$fourStarCount",
           fiveStarCount: "$fiveStarCount"
         },
-        
+
       }
     ])
     .toArray((err: any, result: any) => {
@@ -73,6 +75,7 @@ ratingRoutes.route("/stats").get((req, res) => {
     });
 });
 
+// Get rating of one item
 ratingRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
@@ -89,12 +92,13 @@ ratingRoutes.route("/:id").get((req, res) => {
         },
       },
     ])
-  .toArray((err: any, result: any) => {
-    if (err) throw err;
-    res.json(result);
-  });
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
 })
 
+// Create new rating for item by id
 ratingRoutes.route("/:id").post((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
@@ -108,6 +112,7 @@ ratingRoutes.route("/:id").post((req, res) => {
     });
 });
 
+// Get avg of ratings for one item
 ratingRoutes.route("/avg/:id").get((req, res) => {
   const dbConnect = getDb();
   const id = new ObjectId(req.params.id);
@@ -116,7 +121,7 @@ ratingRoutes.route("/avg/:id").get((req, res) => {
     .collection(collection)
     .aggregate([
       {
-        $match: { _id: id},
+        $match: { _id: id },
       },
       {
         $unwind: "$rating",
@@ -129,7 +134,7 @@ ratingRoutes.route("/avg/:id").get((req, res) => {
       },
       {
         $project: {
-          avg: {$round: ["$avg", 2]}, 
+          avg: { $round: ["$avg", 2] },
         }
       }
     ])

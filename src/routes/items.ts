@@ -6,8 +6,7 @@ import { Item } from "../models/Item";
 const itemRoutes = express.Router();
 const collection = "item"
 
-// http://localhost:3000/item?sort={"price":1}&filter={"delivery": "UPS"}
-
+// Get all items
 itemRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
   const filter = JSON.parse(req.query.filter?.toString() || "{}"); 
@@ -23,6 +22,7 @@ itemRoutes.route("/").get((req, res) => {
     });
 });
 
+// Get item by id
 itemRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
@@ -34,6 +34,7 @@ itemRoutes.route("/:id").get((req, res) => {
     });
 });
 
+// Create item
 itemRoutes.route("/").post((req, res) => {
   const dbConnect = getDb();
   const item = new Item(req);
@@ -45,6 +46,7 @@ itemRoutes.route("/").post((req, res) => {
     });
 });
 
+// Update item
 itemRoutes.route("/:id").put((req, res) => {
     const dbConnect = getDb();
     const query = { _id: new ObjectId(req.params.id) };
@@ -61,16 +63,18 @@ itemRoutes.route("/:id").put((req, res) => {
       });
   });
 
-  itemRoutes.route("/:id").delete((req, res) => {
-    const dbConnect = getDb();
-    const query = { _id: new ObjectId(req.params.id) };
-    dbConnect
-      .collection(collection)
-      .deleteOne(query, (err: any, result: Response) => {
-        if (err) throw err;
-        console.log("1 document deleted");
-        res.json(result);
-      });
-  });
+
+// Remove item
+itemRoutes.route("/:id").delete((req, res) => {
+  const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
+  dbConnect
+    .collection(collection)
+    .deleteOne(query, (err: any, result: Response) => {
+      if (err) throw err;
+      console.log("1 document deleted");
+      res.json(result);
+    });
+});
 
 export default itemRoutes;
