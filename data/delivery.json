@@ -1,17 +1,17 @@
 [
     {
         "name": "UPS",
-        "price": 15,
-        "free": 200 
+        "price": 150,
+        "free": 2000 
     },
     {
         "name": "FedEx",
-        "price": 10,
-        "free": 300 
+        "price": 100,
+        "free": 3000 
     },
     {
         "name": "USPS",
-        "price": 15,
-        "free" : 200
+        "price": 200,
+        "free" : 4000
     }
 ]
