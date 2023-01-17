@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 import { stringify } from "querystring";
 import { getDb } from "../config/db";
 import { Item } from "../models/Item";
+import itemRoutes from "./items";
 
 const cartRoutes = express.Router();
 const collection = "item";
@@ -12,9 +13,15 @@ cartRoutes.route("/").post((req, res) => {
   const cart: { id: string; quantity: number }[] = req.body.cart;
   let ids: ObjectId[] = [];
 
-  cart.forEach((element) => {
-    ids = [...ids, new ObjectId(element.id)];
-  });
+  try {
+    cart.forEach((element) => {
+      ids = [...ids, new ObjectId(element.id)];
+    });
+  } catch (err: any) {
+    res.status(500).json({ "message": `Wrong id (${err.message})` })
+    return
+  }
+
 
   let total = 0;
   let send = false;
@@ -28,6 +35,9 @@ cartRoutes.route("/").post((req, res) => {
     ])
     .toArray((err: any, result: any) => {
       if (err) throw err;
+      if (result.length < cart.length){
+        res.status(500).json({"message": "Some ids doesn't exist in db"})
+      }
       result.forEach((item: any) => {
         const quantity = cart.find((t) => t.id == item._id)?.quantity;
         if (!quantity || quantity <= 0 || !Number.isInteger(quantity)) {
