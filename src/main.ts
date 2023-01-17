@@ -5,6 +5,7 @@ import { connectToServer } from "./config/db";
 import itemRoutes from "./routes/items";
 import ratingRoutes from "./routes/ratings";
 import cartRoutes from "./routes/cart";
+import orderRoutes from "./routes/order";
 config({ path: ".env" });
 
 const app = express();
@@ -15,7 +16,8 @@ app.use(express.json());
 
 app.use("/items", itemRoutes);
 app.use("/ratings", ratingRoutes);
-app.use("/cart", cartRoutes)
+app.use("/cart", cartRoutes);
+app.use("/order", orderRoutes)
 
 app.listen(port, () => {
   connectToServer((err: any) => {

@@ -17,6 +17,7 @@ cartRoutes.route("/").post((req, res) => {
   });
 
   let total = 0;
+  let send = false;
 
   dbConnect
     .collection(collection)
@@ -35,7 +36,8 @@ cartRoutes.route("/").post((req, res) => {
             .json({
               message: `Wrong quantity value of ${item.name}: ${quantity} `,
             });
-          return;
+          send = true;
+          return
         }
 
         if (quantity > item.quantity) {
@@ -44,24 +46,17 @@ cartRoutes.route("/").post((req, res) => {
             .json({
               message: `Not enough ${item.name} (${item.quantity} in stock) `,
             });
+          send = true;
           return;
         }
 
         total += quantity * item.price;
       });
 
-      res.status(200).json({ message: "cart is correct", total: total });
+      if (!send) {
+        res.status(200).json({ message: "cart is correct", total: total });
+      }
     });
 });
 
 export default cartRoutes;
-
-// const dbConnect = getDb();
-// dbConnect
-//   .collection(collection)
-//   .find(filter)
-//   .sort(sort)
-//   .toArray((err: any, result: any) => {
-//     if (err) throw err;
-//     res.json(result);
-//   });
