@@ -46,21 +46,21 @@ orderRoutes.route("/stats").get((req, res) => {
     .collection(orderC)
     .aggregate([
       {
-          $group: {
-              _id: "$payed",
-              count: { $sum: 1 },
-              earned: { $sum: "$price" }
-          }
+        $group: {
+          _id: "$payed",
+          count: { $sum: 1 },
+          earned: { $sum: "$price" }
+        }
       },
       {
-          $project: {
-            _id: 0,
-            payed: "$_id",
-            count: "$count",
-            earned: "$earned"
-          }
+        $project: {
+          _id: 0,
+          payed: "$_id",
+          count: "$count",
+          earned: "$earned"
+        }
       }
-  ])
+    ])
     .toArray((err: any, result: any) => {
       if (err) throw err;
       res.json(result);
@@ -180,31 +180,27 @@ orderRoutes.route("/:id").put(async (req, res) => {
   const newValues = { $set: { payed: true } };
 
   try {
-
     const order = await dbConnect
       .collection(orderC)
       .findOne(query);
-     
-    if(order.payed){
-      res.status(500).json({message: `Order ${order._id} already payed`})
+
+    if (order.payed) {
+      res.status(500).json({ message: `Order ${order._id} already payed` })
       return
     }
-      
+
     await dbConnect
       .collection(orderC)
       .updateOne(query, newValues, { upsert: true });
 
-    
-
-    order.items.forEach(async (item: {id: string, quantity: number, delivery: string}) =>{
+    order.items.forEach(async (item: { id: string, quantity: number, delivery: string }) => {
       const item_id = new ObjectId(item.id);
       await dbConnect
         .collection(itemC)
-        .updateOne({_id: item_id}, {$inc: {quantity: -item.quantity}})
+        .updateOne({ _id: item_id }, { $inc: { quantity: -item.quantity } })
     })
 
     res.status(200).json(order);
-
   } catch (err: any) {
     res.status(500).json(err.message);
   }

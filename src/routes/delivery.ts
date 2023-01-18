@@ -37,6 +37,7 @@ deliveryRoutes.route("/:id").get((req, res) => {
 deliveryRoutes.route("/").post((req, res) => {
   const dbConnect = getDb();
   const delivery = new Delivery(req);
+
   dbConnect
     .collection(collection)
     .insertOne(delivery, (err: any, result: any) => {
@@ -57,7 +58,6 @@ deliveryRoutes.route("/:id").put((req, res) => {
     .collection(collection)
     .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
       if (err) throw err;
-      console.log("1 document updated successfully");
       res.json(result);
     });
 });
@@ -71,7 +71,6 @@ deliveryRoutes.route("/:id").delete((req, res) => {
     .collection(collection)
     .deleteOne(query, (err: any, result: Response) => {
       if (err) throw err;
-      console.log("1 document deleted");
       res.json(result);
     });
 });
