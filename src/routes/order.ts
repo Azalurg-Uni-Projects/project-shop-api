@@ -22,6 +22,33 @@ function addKeyValue(obj: DeliveryGroup, key: string, value: number) {
   }
 }
 
+// Get all orders
+orderRoutes.route("/").get((req, res) => {
+  const dbConnect = getDb();
+
+  dbConnect
+    .collection(orderC)
+    .find({})
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
+// Get item by id
+orderRoutes.route("/:id").get((req, res) => {
+  const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
+
+  dbConnect
+    .collection(orderC)
+    .findOne(query, (err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
+// Create delivery
 orderRoutes.route("/").post(async (req, res) => {
   const dbConnect = getDb();
   const newOrder = new Order(req);
@@ -87,26 +114,46 @@ orderRoutes.route("/").post(async (req, res) => {
         },
       ])
       .toArray();
-    
+
     let without_delivery = 0;
     let total = 0;
 
-    for(let i in deliveries){
+    for (let i in deliveries) {
       total += deliveryGroup[deliveries[i]._id]
       without_delivery += deliveryGroup[deliveries[i]._id]
-      if (deliveryGroup[deliveries[i]._id]  < deliveries[i].free){
+      if (deliveryGroup[deliveries[i]._id] < deliveries[i].free) {
         total += deliveries[i].price
       }
     }
 
-    res.json({total, without_delivery})
+    newOrder.price = without_delivery;
+    newOrder.total_price = without_delivery;
+
+    await dbConnect
+      .collection(orderC)
+      .insertOne(newOrder, (err: any, result: any) => {
+        if (err) throw err;
+        res.status(201).json(result);
+      });
 
   } catch (err: any) {
     res.status(500).json(err.message);
   }
 });
 
-export default orderRoutes;
+// Update item
+orderRoutes.route("/:id").put((req, res) => {
+  const dbConnect = getDb();
+  const query = { _id: new ObjectId(req.params.id) };
+  const newValues = { $set: { payed: true } };
 
-// Im lack of few checks...
-// Save and send order back
+  dbConnect
+    .collection(orderC)
+    .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
+      if (err) throw err;
+      console.log("1 document updated successfully");
+      res.json(result);
+    });
+});
+
+export default orderRoutes;
