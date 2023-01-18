@@ -25,10 +25,13 @@ function addKeyValue(obj: DeliveryGroup, key: string, value: number) {
 // Get all orders
 orderRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
+  const filter = JSON.parse(req.query.filter?.toString() || "{}");
+  const sort = JSON.parse(req.query.sort?.toString() || "{}");
 
   dbConnect
     .collection(orderC)
-    .find({})
+    .find(filter)
+    .sort(sort)
     .toArray((err: any, result: any) => {
       if (err) throw err;
       res.json(result);
@@ -141,19 +144,41 @@ orderRoutes.route("/").post(async (req, res) => {
   }
 });
 
-// Update item
-orderRoutes.route("/:id").put((req, res) => {
+// Pay for order
+orderRoutes.route("/:id").put(async (req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
   const newValues = { $set: { payed: true } };
 
-  dbConnect
-    .collection(orderC)
-    .updateOne(query, newValues, { upsert: true }, (err: any, result: any) => {
-      if (err) throw err;
-      console.log("1 document updated successfully");
-      res.json(result);
-    });
+  try {
+
+    const order = await dbConnect
+      .collection(orderC)
+      .findOne(query);
+     
+    if(order.payed){
+      res.status(500).json({message: `Order ${order._id} already payed`})
+      return
+    }
+      
+    await dbConnect
+      .collection(orderC)
+      .updateOne(query, newValues, { upsert: true });
+
+    
+
+    order.items.forEach(async (item: {id: string, quantity: number, delivery: string}) =>{
+      const item_id = new ObjectId(item.id);
+      await dbConnect
+        .collection(itemC)
+        .updateOne({_id: item_id}, {$inc: {quantity: -item.quantity}})
+    })
+
+    res.status(200).json(order);
+
+  } catch (err: any) {
+    res.status(500).json(err.message);
+  }
 });
 
 export default orderRoutes;

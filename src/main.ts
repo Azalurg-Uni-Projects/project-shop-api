@@ -18,8 +18,8 @@ app.use(express.json());
 app.use("/items", itemRoutes);
 app.use("/ratings", ratingRoutes);
 app.use("/cart", cartRoutes);
-app.use("/order", orderRoutes);
-app.use("/delivery", deliveryRoutes);
+app.use("/orders", orderRoutes);
+app.use("/deliveries", deliveryRoutes);
 
 app.listen(port, () => {
   connectToServer((err: any) => {
