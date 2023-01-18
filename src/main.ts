@@ -4,6 +4,9 @@ import { config } from "dotenv";
 import { connectToServer } from "./config/db";
 import itemRoutes from "./routes/items";
 import ratingRoutes from "./routes/ratings";
+import cartRoutes from "./routes/cart";
+import orderRoutes from "./routes/order";
+import deliveryRoutes from "./routes/delivery";
 config({ path: ".env" });
 
 const app = express();
@@ -14,6 +17,9 @@ app.use(express.json());
 
 app.use("/items", itemRoutes);
 app.use("/ratings", ratingRoutes);
+app.use("/cart", cartRoutes);
+app.use("/orders", orderRoutes);
+app.use("/deliveries", deliveryRoutes);
 
 app.listen(port, () => {
   connectToServer((err: any) => {

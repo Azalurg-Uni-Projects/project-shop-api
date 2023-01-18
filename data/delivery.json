@@ -1,0 +1,17 @@
+[
+    {
+        "name": "UPS",
+        "price": 150,
+        "free": 2000 
+    },
+    {
+        "name": "FedEx",
+        "price": 100,
+        "free": 3000 
+    },
+    {
+        "name": "USPS",
+        "price": 200,
+        "free" : 4000
+    }
+]

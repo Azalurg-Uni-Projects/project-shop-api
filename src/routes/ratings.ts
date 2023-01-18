@@ -79,6 +79,7 @@ ratingRoutes.route("/stats").get((req, res) => {
 ratingRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
+
   dbConnect
     .collection(collection)
     .aggregate([
@@ -103,11 +104,11 @@ ratingRoutes.route("/:id").post((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
   const newRating = new Rating(req);
+
   dbConnect
     .collection(collection)
     .updateOne(query, { $push: { rating: newRating } }, (err: any, result: any) => {
       if (err) throw err;
-      console.log("1 document updated successfully");
       res.json(result);
     });
 });

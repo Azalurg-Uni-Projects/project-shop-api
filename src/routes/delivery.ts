@@ -1,29 +1,27 @@
 import express from "express";
 import { ObjectId } from "mongodb";
 import { getDb } from "../config/db";
-import { Item } from "../models/Item";
+import Delivery from "../models/Delivery";
+import Order from "../models/Order";
 
-const itemRoutes = express.Router();
-const collection = "item"
+const deliveryRoutes = express.Router();
+const collection = "delivery";
 
-// Get all items
-itemRoutes.route("/").get((req, res) => {
+// Get all deliveries
+deliveryRoutes.route("/").get((req, res) => {
   const dbConnect = getDb();
-  const filter = JSON.parse(req.query.filter?.toString() || "{}");
-  const sort = JSON.parse(req.query.sort?.toString() || "{}");
 
   dbConnect
     .collection(collection)
-    .find(filter)
-    .sort(sort)
+    .find({})
     .toArray((err: any, result: any) => {
       if (err) throw err;
       res.json(result);
     });
 });
 
-// Get item by id
-itemRoutes.route("/:id").get((req, res) => {
+// Get delivery by id
+deliveryRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
 
@@ -35,25 +33,25 @@ itemRoutes.route("/:id").get((req, res) => {
     });
 });
 
-// Create item
-itemRoutes.route("/").post((req, res) => {
+// Create delivery
+deliveryRoutes.route("/").post((req, res) => {
   const dbConnect = getDb();
-  const item = new Item(req);
+  const delivery = new Delivery(req);
 
   dbConnect
     .collection(collection)
-    .insertOne(item, (err: any, result: any) => {
+    .insertOne(delivery, (err: any, result: any) => {
       if (err) throw err;
       res.json(result);
     });
 });
 
-// Update item
-itemRoutes.route("/:id").put((req, res) => {
+// Update delivery
+deliveryRoutes.route("/:id").put((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
   const newValues = {
-    $set: { ... new Item(req) },
+    $set: { ... new Delivery(req) },
   };
 
   dbConnect
@@ -64,9 +62,8 @@ itemRoutes.route("/:id").put((req, res) => {
     });
 });
 
-
-// Remove item
-itemRoutes.route("/:id").delete((req, res) => {
+// Remove delivery
+deliveryRoutes.route("/:id").delete((req, res) => {
   const dbConnect = getDb();
   const query = { _id: new ObjectId(req.params.id) };
 
@@ -78,4 +75,4 @@ itemRoutes.route("/:id").delete((req, res) => {
     });
 });
 
-export default itemRoutes;
+export default deliveryRoutes;
