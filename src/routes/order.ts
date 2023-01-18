@@ -38,6 +38,35 @@ orderRoutes.route("/").get((req, res) => {
     });
 });
 
+// Get orders stats
+orderRoutes.route("/stats").get((req, res) => {
+  const dbConnect = getDb();
+
+  dbConnect
+    .collection(orderC)
+    .aggregate([
+      {
+          $group: {
+              _id: "$payed",
+              count: { $sum: 1 },
+              earned: { $sum: "$price" }
+          }
+      },
+      {
+          $project: {
+            _id: 0,
+            payed: "$_id",
+            count: "$count",
+            earned: "$earned"
+          }
+      }
+  ])
+    .toArray((err: any, result: any) => {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+
 // Get item by id
 orderRoutes.route("/:id").get((req, res) => {
   const dbConnect = getDb();
